@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '../services/api.js'
 
 export default {
 
@@ -43,20 +43,19 @@ export default {
   },
 
   methods: {
+    
     fetchData() {
-      axios.get('https://pokeapi.co/api/v2/pokemon?limit=151') // Substitua pelo URL da API
-        .then(response => {
-            const results = response.data.results;
-            results.forEach((pokemon, index) => {
-              pokemon.id = index + 1;
-            });
-            this.data = results;
-            // let dataTemp = response.data.results.map(pokemon => pokemon.name);
-            // console.log(dataTemp);
-        })
-        .catch(error => {
-          console.error('Erro ao buscar dados:', error);
+      api.get("/pokemon?limit=151") // 151 1º geração,  o máximo da API e 1302.
+      .then(response => {
+        const results = response.data.results;
+        results.forEach((pokemon, index) => {
+          pokemon.id = index + 1;
         });
+        this.data = results;
+      })
+      .catch(error => {
+        console.error('Erro ao buscar dados:', error);
+      });
     }
   }
 };
