@@ -1,0 +1,23 @@
+{
+  "name": "pokevueapp",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "axios": "^1.7.3",
+    "pokevueapp": "file:",
+    "sass-loader": "^10.5.2",
+    "vue": "^3.4.35",
+    "vuetify": "^3.7.0-beta.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.2",
+    "vite": "^5.4.0"
+  }
+}
