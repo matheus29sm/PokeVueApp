@@ -15,6 +15,14 @@
                 <tr>
                   <td>{{ item.name }}</td>
                   <td>{{ item.id }}</td>
+                  <td>
+                    <v-btn
+                    icon="mdi-eye"
+                    variant="outlined"
+                    size="small"
+                    color="primary"
+                    ></v-btn>
+                  </td>
                 </tr>
             </template>
         </v-data-table>
@@ -33,7 +41,8 @@ export default {
       data: [],
       headers: [
         { title: 'Nome', value: 'name', align: 'center' },
-        { title: 'Número Pokédex', value: 'id', align: 'center' }
+        { title: 'Número Pokédex', value: 'id', align: 'center' },
+        { title: 'Detalhes', value: 'detalhes', sortable: false, align: 'center' }
       ]
     };
   },
