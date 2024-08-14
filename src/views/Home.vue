@@ -21,6 +21,7 @@
                     variant="outlined"
                     size="small"
                     color="primary"
+                    @click="navigateDetails(item.id)"
                     ></v-btn>
                   </td>
                 </tr>
@@ -65,6 +66,10 @@ export default {
       .catch(error => {
         console.error('Erro ao buscar dados:', error);
       });
+    },
+
+    navigateDetails(pokemonId) {
+      this.$router.push(`/detalhes/${pokemonId}`);
     }
   }
 };
