@@ -33,10 +33,11 @@
 </template>
 
 <script>
+
 import api from '../services/api.js'
 
 export default {
-
+  name: 'Home',
   data() {
     return {
       data: [],
