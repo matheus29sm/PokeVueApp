@@ -33,11 +33,11 @@
 </template>
 
 <script>
-
 import api from '../services/api.js'
 
 export default {
   name: 'Home',
+
   data() {
     return {
       data: [],
@@ -54,7 +54,6 @@ export default {
   },
 
   methods: {
-    
     fetchData() {
       api.get("/pokemon?limit=151") // 151 1º geração,  o máximo da API e 1302.
       .then(response => {

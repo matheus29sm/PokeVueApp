@@ -28,19 +28,31 @@
               </span>
             </div>
             <div>
-              <strong>Status:</strong>
-              <v-list dense>
-                <v-list-item v-for="(stat, index) in pokemon.stats" :key="index">
-                    <v-list-item-title> <strong>{{ stat.stat.name }}: </strong> {{ stat.base_stat }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
+              <v-card elevation="5">
+                <strong>Status:</strong>
+                <v-list>
+                  <v-list-item v-for="(stat, index) in pokemon.stats" :key="index">
+                    <v-list-item-title>
+                      <strong>{{ stat.stat.name }}: </strong> {{ stat.base_stat }}
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-card>
             </div>
-            <div>
-              <strong>Movimento(s): </strong>
-              <span v-for="(moves, index) in pokemon.moves" :key="index">
-                {{ moves.move.name }}<span v-if="index < pokemon.moves.length - 1">, </span>
-              </span>
-            </div>
+            <v-btn
+              class="ma-2"
+              color="blue"
+              variant="outlined"
+              @click="moves_dialog = true"
+              append-icon="mdi-open-in-new"
+            >
+              Movimentos
+            </v-btn>
+            <moves-modal
+              v-if="moves_dialog"
+              :moves="pokemon.moves"
+              @close="moves_dialog = false"
+            ></moves-modal>
           </v-card-text>
         </v-card>
       </v-col>
@@ -56,7 +68,7 @@
       </v-btn>
       <v-btn
         class="ma-4"
-        color="red"
+        color="primary"
         variant="outlined"
         @click="goHome"
       >
@@ -79,17 +91,28 @@
 </template>
 
 <script>
-
 import api from '../services/api.js'
+import MovesModal from './MovesModal.vue';
 
 export default {
-
   name: 'Details',
-  props: ['id'],
+
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+
+  components: {
+    MovesModal
+  },
+
   data() {
     return {
       pokemon: {},
-      nextDisabled: false
+      nextDisabled: false,
+      moves_dialog: false,
     };
   },
 
@@ -99,13 +122,12 @@ export default {
 
   watch: {
     id() {
-      // console.log('ID do Pokémon atualizado:', id);
       this.fetchPokemonDetails();
+      this.moves_dialog = false;
     }
   },
 
   methods: {
-
     fetchPokemonDetails() {
       api.get(`/pokemon/${this.id}/`)
         .then(response => {
@@ -117,14 +139,14 @@ export default {
     },
 
     goBack() {
-        this.$router.go(-1);
+      this.$router.go(-1);
     },
-    
-    goHome(){
+
+    goHome() {
       this.$router.push('/');
     },
 
-    goNext(){
+    goNext() {
       const id = Number(this.id);
       const next = id + 1;
       // Supondo que o limite máximo de IDs seja 151
@@ -134,7 +156,6 @@ export default {
         this.nextDisabled = true;
       }
     }
-
   },
 };
 </script>
